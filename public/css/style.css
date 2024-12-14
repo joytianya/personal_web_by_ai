@@ -428,3 +428,130 @@ footer {
     font-size: 14px;
     color: #666;
 }
+
+/* 主题色定义 */
+:root {
+  --blog-color: #2196F3;    /* 蓝色主题 */
+  --image-color: #9C27B0;   /* 紫色主题 */
+  --video-color: #4CAF50;   /* 绿色主题 */
+}
+
+/* 导航栏样式 */
+.nav-item[data-section="blog"] {
+  color: var(--blog-color);
+}
+
+.nav-item[data-section="gallery"] {
+  color: var(--image-color);
+}
+
+.nav-item[data-section="video"] {
+  color: var(--video-color);
+}
+
+/* 内容区域样式 */
+#blog-section .post-title {
+  color: var(--blog-color);
+}
+
+#blog-section .post-meta {
+  color: var(--blog-color);
+  opacity: 0.8;
+}
+
+#blog-section .post-excerpt {
+  border-left: 3px solid var(--blog-color);
+  padding-left: 15px;
+}
+
+#gallery-section .image-title {
+  color: var(--image-color);
+}
+
+#gallery-section .image-info {
+  color: var(--image-color);
+  opacity: 0.8;
+}
+
+#video-section .video-title {
+  color: var(--video-color);
+}
+
+#video-section .video-info {
+  color: var(--video-color);
+  opacity: 0.8;
+}
+
+/* 上传按钮样式 */
+.upload-btn {
+  background-color: #f0f0f0;
+  border: 2px solid;
+  transition: all 0.3s ease;
+}
+
+#blog-section .upload-btn {
+  border-color: var(--blog-color);
+  color: var(--blog-color);
+}
+
+#gallery-section .upload-btn {
+  border-color: var(--image-color);
+  color: var(--image-color);
+}
+
+#video-section .upload-btn {
+  border-color: var(--video-color);
+  color: var(--video-color);
+}
+
+/* 进度条样式 */
+#blog-section .progress-fill {
+  background-color: var(--blog-color);
+}
+
+#gallery-section .progress-fill {
+  background-color: var(--image-color);
+}
+
+#video-section .progress-fill {
+  background-color: var(--video-color);
+}
+
+/* 标签样式 */
+.tag {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+#blog-section .tag {
+  background-color: rgba(33, 150, 243, 0.1);
+  color: var(--blog-color);
+}
+
+#gallery-section .tag {
+  background-color: rgba(156, 39, 176, 0.1);
+  color: var(--image-color);
+}
+
+#video-section .tag {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--video-color);
+}
+
+/* 激活状态样式 */
+.nav-item.active[data-section="blog"] {
+  background-color: var(--blog-color);
+  color: white;
+}
+
+.nav-item.active[data-section="gallery"] {
+  background-color: var(--image-color);
+  color: white;
+}
+
+.nav-item.active[data-section="video"] {
+  background-color: var(--video-color);
+  color: white;
+}
