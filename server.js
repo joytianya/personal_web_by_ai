@@ -39,7 +39,7 @@ const storage = multer.diskStorage({
         cb(null, monthDir);
     },
     filename: (req, file, cb) => {
-        // 生成文件名: 时间戳-原始���件名
+        // 生成文件名: 时间戳-原始文件名
         const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
         cb(null, `${uniqueSuffix}${path.extname(file.originalname)}`);
     }
@@ -64,30 +64,32 @@ const upload = multer({
     }
 });
 
-// 配置视频上传
+// 配置视频上传存储
 const videoStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         const videoDir = path.join(__dirname, 'public/uploads/videos');
-        if (!fs.existsSync(videoDir)){
+        if (!fs.existsSync(videoDir)) {
             fs.mkdirSync(videoDir, { recursive: true });
         }
         cb(null, videoDir);
     },
     filename: (req, file, cb) => {
-        cb(null, `video-${Date.now()}${path.extname(file.originalname)}`);
+        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+        cb(null, `video-${uniqueSuffix}${path.extname(file.originalname)}`);
     }
 });
 
 const videoUpload = multer({
     storage: videoStorage,
-    fileFilter: (req, file, cb) => {
-        if (!file.mimetype.startsWith('video/')) {
-            return cb(new Error('只允许上传视频文件！'));
-        }
-        cb(null, true);
-    },
     limits: {
-        fileSize: 500 * 1024 * 1024 // 增加到 500MB
+        fileSize: 500 * 1024 * 1024, // 限制500MB
+    },
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype.startsWith('video/')) {
+            cb(null, true);
+        } else {
+            cb(new Error('只允许上传视频文件！'));
+        }
     }
 });
 
@@ -124,15 +126,22 @@ app.post('/upload', upload.single('image'), (req, res) => {
 // 上传视频
 app.post('/upload-video', videoUpload.single('video'), (req, res) => {
     try {
+        if (!req.file) {
+            return res.json({
+                success: false,
+                message: '没有收到视频文件'
+            });
+        }
+
         res.json({
             success: true,
-            videoUrl: '/uploads/videos/' + req.file.filename,
-            title: req.file.originalname
+            message: '视频上传成功',
+            videoUrl: `/uploads/videos/${req.file.filename}`
         });
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             success: false,
-            message: error.message
+            message: '视频上传失败：' + error.message
         });
     }
 });

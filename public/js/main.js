@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             handleVideoUpload({ target: { files } });
         });
 
-        // 加载视频列表
+        // ���载视频列表
         loadVideos();
     }
 
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.success) {
                 loadVideos();
             } else {
-                alert('删除失败：' + data.message);
+                alert('删除失���：' + data.message);
             }
         })
         .catch(error => {
@@ -392,4 +392,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 在 DOMContentLoaded 事件中初始化视频功能
     initVideoUpload();
+
+    const uploadVideoBtn = document.getElementById('uploadVideoBtn');
+    const videoUpload = document.getElementById('videoUpload');
+    const uploadProgress = document.getElementById('uploadProgress');
+    const progressFill = uploadProgress.querySelector('.progress-fill');
+    const progressText = uploadProgress.querySelector('.progress-text');
+
+    uploadVideoBtn.addEventListener('click', () => {
+        videoUpload.click();
+    });
+
+    videoUpload.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // 检查文件类型和大小
+        if (!file.type.startsWith('video/')) {
+            alert('请选择视频文件！');
+            return;
+        }
+
+        // 显示进度条
+        uploadProgress.style.display = 'block';
+        
+        const formData = new FormData();
+        formData.append('video', file);
+
+        try {
+            const xhr = new XMLHttpRequest();
+            
+            // 监听上传进度
+            xhr.upload.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    const percentComplete = (event.loaded / event.total) * 100;
+                    progressFill.style.width = percentComplete + '%';
+                    progressText.textContent = Math.round(percentComplete) + '%';
+                }
+            };
+
+            // 上传完成
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        alert('视频上传成功！');
+                        // 这里可以添加显示上传视频的逻辑
+                    } else {
+                        alert('上传失败：' + response.message);
+                    }
+                } else {
+                    alert('上传失败，请重试');
+                }
+                // 重置进度条
+                setTimeout(() => {
+                    uploadProgress.style.display = 'none';
+                    progressFill.style.width = '0%';
+                    progressText.textContent = '0%';
+                }, 1000);
+            };
+
+            // 上传错误
+            xhr.onerror = () => {
+                alert('上传出错，请重试');
+                uploadProgress.style.display = 'none';
+            };
+
+            xhr.open('POST', '/upload-video', true);
+            xhr.send(formData);
+
+        } catch (error) {
+            console.error('上传错误：', error);
+            alert('上传出错，请重试');
+            uploadProgress.style.display = 'none';
+        }
+    });
 });
