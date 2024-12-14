@@ -24,15 +24,16 @@
 3. 访问网址：`http://localhost:3000`
 
 
+## 项目结构
 project/
-├── public/
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   └── main.js
-│   └── uploads/
-├── views/
-│   └── index.html
-├── server.js
-├── package.json
-└── README.md
+├── public/                # 静态资源目录
+│   ├── css/              # CSS样式文件
+│   │   └── style.css     # 主样式文件
+│   ├── js/               # JavaScript文件
+│   │   └── main.js       # 主逻辑文件
+│   └── uploads/          # 上传文件存储目录
+├── views/                # 视图模板目录
+│   └── index.html        # 主页面模板
+├── server.js             # 服务器入口文件
+├── package.json          # 项目配置和依赖
+└── README.md             # 项目说明文档
