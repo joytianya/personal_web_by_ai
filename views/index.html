@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人空间</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header id="siteHeader">
+            <div class="site-title">
+                <h1>我的个人空间</h1>
+                <p class="subtitle">分享知识，记录生活</p>
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="nav-item active" data-section="blog">博客</a>
+                <a href="#" class="nav-item" data-section="gallery">图片</a>
+                <a href="#" class="nav-item" data-section="video">视频</a>
+            </nav>
+            <button id="setHeaderBg" class="header-bg-btn">设置背景图片</button>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="widget">
+                    <h3>分类</h3>
+                    <ul id="tags-list">
+                        <!-- 标签将通过JS动态添加 -->
+                    </ul>
+                </div>
+
+                <div class="widget">
+                    <h3>最新文章</h3>
+                    <ul id="recent-posts">
+                        <!-- 最新文章将通过JS动态添加 -->
+                    </ul>
+                </div>
+
+                <div class="upload-widget">
+                    <h3>图片上传</h3>
+                    <div class="upload-area" id="dropZone">
+                        <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                        <div class="upload-text">点击或拖拽上传图片</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div id="blog-section" class="section">
+                    <div id="posts-list">
+                        <!-- 博客列表将通过JS动态添加 -->
+                    </div>
+                    <div id="post-content" style="display: none;">
+                        <!-- 单篇博客内容将通过JS动态添加 -->
+                    </div>
+                </div>
+
+                <div id="gallery-section" class="section" style="display: none;">
+                    <div class="gallery" id="imageGallery">
+                        <!-- 图片将在这里动态显示 -->
+                    </div>
+                </div>
+
+                <div id="video-section" class="section" style="display: none;">
+                    <div class="video-upload">
+                        <div class="upload-area" id="videoDropZone">
+                            <input type="file" id="videoInput" accept="video/*" hidden>
+                            <div class="upload-text">点击或拖拽上传视频</div>
+                        </div>
+                    </div>
+                    <div class="video-gallery" id="videoGallery">
+                        <!-- 视频将在这里动态显示 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 我的个人空间 | All Rights Reserved</p>
+        </footer>
+    </div>
+    <script src="/js/main.js"></script>
+</body>
+</html>
